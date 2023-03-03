@@ -32,7 +32,7 @@
 1. Press the *Install Ubuntu* Icon on the top-right
 2. Go through the questions, selecting your choice for the question you know how to answer, making sure to select the correct partition and leaving the defaults for the other questions.
 
-# Setup a basic configuration
+# Setup system configuration
 
 Open a terminal either by pressing Ctrl + Alt + T or by pressing Home/Windows key and searching for terminal.
 
@@ -127,4 +127,11 @@ Open *startup application manager*. Press Add and fill the following fields:
 - name: *Guake* (or whatever you want)
 - Command: `guake`
 - Comment: *Starts Guake terminal at startup* (or whatever you want)
+
+# Setup Email Configuration
+
+# Setup Firefox Configuration
+
+# Setup Programming Environment
+
 
