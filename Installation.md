@@ -79,6 +79,15 @@ cd ~
 sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 ```
 
+## Configure side-bar
+
+You can play with the preferences settings of the GUI or simply run
+
+```sh
+dconf load / < ~/CustomSetupMaterial/DefaultInstall/side_bar.dconf 
+```
+
+
 ## Install Guake (Terminal configuration)
 
 ### Basic guake install
@@ -118,5 +127,4 @@ Open *startup application manager*. Press Add and fill the following fields:
 - name: *Guake* (or whatever you want)
 - Command: `guake`
 - Comment: *Starts Guake terminal at startup* (or whatever you want)
-
 
