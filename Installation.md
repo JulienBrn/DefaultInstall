@@ -132,6 +132,8 @@ Open *startup application manager*. Press Add and fill the following fields:
 
 # Setup Firefox Configuration
 
+The suggestion is simply to use a good existing profile. Documentation on how to do that to come.
+
 # Setup Programming Environment
 
 
