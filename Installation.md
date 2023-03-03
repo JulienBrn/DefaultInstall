@@ -113,7 +113,7 @@ cp ~/CustomSetupMaterial/DefaultInstall/guake_autostart.txt ~/.config/autostart/
 ```
 __OR__
 
-Run the command `gnome-session-properties` to get into the *startup application manager* or press Home/Windows key and search for *startup application*. Press Add and fill the following fields:
+Open *startup application manager*. Press Add and fill the following fields:
 
 - name: *Guake* (or whatever you want)
 - Command: `guake`
