@@ -1,14 +1,64 @@
-# Start
+# Vocabulary
+
+- *open app* means to open/execute the app, usually by pressing HOME/WINDOWS Key and searching for *app*
+- command lines (code) are meant to be written in a terminal. To open a terminal, either *open terminal* or press Ctrl + Alt + T
+
+
+# Install Ubuntu
+
+## Make a bootable USB Drive from a Ubuntu computer (or simply ask me for one)
+
+1. Download the [latest stable Ubuntu Desktop](https://ubuntu.com/download/desktop)
+2. Have an __empty__ USB Stick 
+3. Open *Startup Disk Creator* (if not on Ubuntu, find an equivalent)
+4. Fill in the fields as follows and press *Make Startup Disk*
+     - Source disc image: the .iso file you just downloaded
+     - Disk to use: your USB stick
+
+## Booting on that drive
+
+1. Make sure to press F2 or F12 during startup and select your USB Stick as boot device
+2. Select *Try or Install Ubuntu*
+3. Select *Try Ubuntu* (do not install yet)
+4. Try as much as you want
+
+## Creating space to install Ubuntu
+
+1. Open *Disks* from the ubuntu you are trying
+2. Make a partition for where you want to install Ubuntu
+
+## Installing Ubuntu
+
+1. Press the *Install Ubuntu* Icon on the top-right
+2. Go through the questions, selecting your choice for the question you know how to answer, making sure to select the correct partition and leaving the defaults for the other questions.
+
+# Setup a basic configuration
 
 Open a terminal either by pressing Ctrl + Alt + T or by pressing Home/Windows key and searching for terminal.
 
-# Installing Basic Utility
-
 ## Install git
+
+Installing git allows you to fetch repositories from github and is thus the start of our installation process
 
 ```sh
 sudo apt install git
 ```
+
+## Creating basic folder structure for installations
+
+We suggest you put all installation material in an *CustomSetupMaterial* folder in your home directory. To do so:
+
+```sh
+cd ~ #Goes to your home directory
+mkdir CustomSetupMaterial #Creates Installs folder
+cd CustomSetupMaterial #Goes inside it
+```
+
+## Downloading this repo
+
+Once you are in CustomSetupMaterial (last command of last step) simply execute:
+
+`git clone "https://github.com/JulienBrn/DefaultInstall.git"`
 
 ## Install zsh (Shell configuration)
 
