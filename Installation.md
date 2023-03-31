@@ -144,9 +144,9 @@ __OR__
 
 Open *startup application manager*. Press Add and fill the following fields:
 
-- name: *Guake* (or whatever you want)
-- Command: `guake`
-- Comment: *Starts Guake terminal at startup* (or whatever you want)
+- name: *Memory Warning* (or whatever you want)
+- Command: `/home/user/CustomSetupMaterial/DefaultInstall/low_memory_warning.sh` where you replace user by your current user name.
+- Comment: *Warns on low memory* (or whatever you want)
 
 
 # Setup Email Configuration
