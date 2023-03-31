@@ -138,7 +138,7 @@ Simply run
 
 ```sh
 cp ~/CustomSetupMaterial/DefaultInstall/memory_autostart.txt ~/.config/autostart/memory.desktop
-sed "s;~;$HOME" ~/.config/autostart/memory.desktop
+sed -i "s;~;$HOME;" ~/.config/autostart/memory.desktop
 ```
 __OR__
 
