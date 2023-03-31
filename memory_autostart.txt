@@ -4,7 +4,8 @@ Exec=~/CustomSetupMaterial/DefaultInstall/low_memory_warning.sh
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true
-Name[en_US]=Guake
-Name=Guake
-Comment[en_US]=Starts low memory warning script
-Comment=Starts low memory warning script
+Name[en_US]=Memory Warning
+Name=Memory Warning
+Comment[en_US]=Warns on low memory
+Comment=Warns on low memory
+

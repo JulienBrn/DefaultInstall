@@ -36,12 +36,14 @@
 
 Open a terminal either by pressing Ctrl + Alt + T or by pressing Home/Windows key and searching for terminal.
 
-## Install git
+## Install git and htop
 
-Installing git allows you to fetch repositories from github and is thus the start of our installation process
+Installing git allows you to fetch repositories from github and is thus the start of our installation process. 
+htop is a simple command to show CPU/Memory usage in terminal.
 
 ```sh
 sudo apt install git
+sudo apt install htop
 ```
 
 ## Creating basic folder structure for installations
@@ -127,6 +129,25 @@ Open *startup application manager*. Press Add and fill the following fields:
 - name: *Guake* (or whatever you want)
 - Command: `guake`
 - Comment: *Starts Guake terminal at startup* (or whatever you want)
+
+## Setup low memory warning script
+
+This is a simple script that warns you when the memory is low allowing you to act before the computer becomes slow.
+
+Simply run 
+
+```sh
+cp ~/CustomSetupMaterial/DefaultInstall/memory_autostart.txt ~/.config/autostart/memory.desktop
+sed "s;~;$HOME" ~/.config/autostart/memory.desktop
+```
+__OR__
+
+Open *startup application manager*. Press Add and fill the following fields:
+
+- name: *Guake* (or whatever you want)
+- Command: `guake`
+- Comment: *Starts Guake terminal at startup* (or whatever you want)
+
 
 # Setup Email Configuration
 
