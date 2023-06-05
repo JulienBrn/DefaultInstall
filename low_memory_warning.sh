@@ -4,7 +4,7 @@
 
 # Minimum available memory until warning, default to 10% of total RAM (MiB)
 THRESHOLD=$(grep "MemTotal:" /proc/meminfo | awk '{ printf "%d", 0.15*$2/1024}')
-INTERVAL=60s
+INTERVAL=60
 
 echo "Emitting a warning if less than $THRESHOLD MiB of RAM is available..."
 
@@ -28,7 +28,7 @@ Maybe usable: $usable MiB"
 
     if [ "$available" -lt "$THRESHOLD" ]
         then
-        notify-send -u critical "Low memory warning" "$message"
+        notify-send -u critical "Low memory warning" "$message" -t $INTERVAL"000"
         echo "Low memory warning:"
     echo "$message"
     fi

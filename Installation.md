@@ -36,14 +36,15 @@
 
 Open a terminal either by pressing Ctrl + Alt + T or by pressing Home/Windows key and searching for terminal.
 
-## Install git and htop
+## Install git, htop and curl
 
 Installing git allows you to fetch repositories from github and is thus the start of our installation process. 
-htop is a simple command to show CPU/Memory usage in terminal.
+htop is a simple command to show CPU/Memory usage in terminal. Curl is a simple command line download tool.
 
 ```sh
 sudo apt install git
 sudo apt install htop
+sudo apt install curl
 ```
 
 ## Creating basic folder structure for installations
@@ -157,4 +158,69 @@ The suggestion is simply to use a good existing profile. Documentation on how to
 
 # Setup Programming Environment
 
+## Setup a Python programming environment
 
+  I suggest to use python within a conda environment. This allows you to separate your python installation for your programs from the system python installation. 
+  It also enables you to create several nearly fully isolated environments (unline other virtual envrinments tools).
+
+  ### Installing a conda environment
+
+  Install miniconda using:
+
+  ```sh
+  cd ~/Downloads #Puts you in the download directory
+  curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o Miniconda3-latest-Linux-x86_64.sh #Downloads the latest version of miniconda
+  bash Miniconda3-latest-Linux-x86_64.sh #Launches install
+  source ~/.zshrc #Take into account the changes
+  ```
+
+  Create a conda environment:
+
+  ```sh
+  conda create --name CONDA_ENV_NAME python=3.11 #Change the name (CONDA_ENV_NAME) to what you want to call the environment. Set the python version to was is right for you
+  conda activate CONDA_ENV_NAME # Activate the environment
+  ```
+
+  ### Enabling GPU accelaration for tensorflow (guide inspired from [tensorflow guide](https://www.tensorflow.org/install/pip))
+
+  Check that the following command runs and provides a reasonable output. If not please enable GPU accelaration following some other guide.
+  ```sh
+  nvidia-smi
+  ```
+
+  Install required packages. Make sure your conda environment (not base) is activated.
+
+  ```sh
+  conda install -c conda-forge cudatoolkit=11.8.0
+  pip install nvidia-cudnn-cu11==8.6.0.163
+  ```
+
+  Configure environment variables
+
+  ```sh
+  mkdir -p $CONDA_PREFIX/etc/conda/activate.d
+  echo 'CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.__file__)"))' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+  echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+  ```
+
+  Install tensorflow
+
+  ```sh
+  pip install --upgrade pip
+  pip install tensorflow
+  ```
+
+  Check tensorflow installation
+
+  ```sh
+  python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
+  # Should output tf.Tensor(Some_num, shape=(), dtype=floatxx)
+  # Possibly with lots of prints before
+  ```
+
+  Check that GPU is enabled
+
+  ```sh
+  python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+  # Should return a list with at least one element such as: [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]
+  ```
