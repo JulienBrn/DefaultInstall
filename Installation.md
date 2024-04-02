@@ -151,6 +151,7 @@ Open *startup application manager*. Press Add and fill the following fields:
 - Command: `/home/user/CustomSetupMaterial/DefaultInstall/low_memory_warning.sh` where you replace user by your current user name.
 - Comment: *Warns on low memory* (or whatever you want)
 
+# Accessing the Filer
 
 # Setup Email Configuration
 
@@ -212,6 +213,11 @@ The suggestion is simply to use a good existing profile. Documentation on how to
   In the lower right, click on Python and select the your interpreter (you should choose the one of your conda environment)
 
   Finally, press the "play" button and see what happens!
+
+  ### Setting up the VSCode IDE for Jupyter
+
+  Simply create a Jupyter notebook file and follow the instructions given by vscode
+
 
   ### Enabling GPU accelaration for tensorflow (guide inspired from [tensorflow guide](https://www.tensorflow.org/install/pip))
 
