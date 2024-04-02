@@ -17,6 +17,9 @@
 
 ## Booting on that drive
 
+If your disk is encrypted by windows, you may need to unencrypt it (deactivate BitLocker) to install Ubuntu (this depends on what you do). 
+There is however no risk in just continuing from here without caring about this yet, except losing time.
+
 1. Make sure to press F2 or F12 (or sometimes F8, this is depends on your hardware) during startup and select your USB Stick as boot device
 2. Select *Try or Install Ubuntu*
 3. Select *Try Ubuntu* (do not install yet)
