@@ -160,6 +160,8 @@ To execute this program, run
 sudo python3 ~/CustomSetupMaterial/DefaultInstall/install_filer.py
 ```
 
+# Setting up your Github key
+
 # Setup Email Configuration
 
 # Setup Firefox Configuration
