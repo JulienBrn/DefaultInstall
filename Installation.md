@@ -209,7 +209,9 @@ The suggestion is simply to use a good existing profile. Documentation on how to
   print(f"Hello! Did you know that 3+5={3+5}?")
   ```
 
-  Finally, in the lower right, click on Python and select the yourn interpreter (you should choose the one of your conda environment)
+  In the lower right, click on Python and select the your interpreter (you should choose the one of your conda environment)
+
+  Finally, press the "play" button and see what happends!
 
   ### Enabling GPU accelaration for tensorflow (guide inspired from [tensorflow guide](https://www.tensorflow.org/install/pip))
 
