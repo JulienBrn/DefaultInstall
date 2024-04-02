@@ -17,7 +17,7 @@
 
 ## Booting on that drive
 
-1. Make sure to press F2 or F12 during startup and select your USB Stick as boot device
+1. Make sure to press F2 or F12 (or sometimes F8, this is depends on your hardware) during startup and select your USB Stick as boot device
 2. Select *Try or Install Ubuntu*
 3. Select *Try Ubuntu* (do not install yet)
 4. Try as much as you want
@@ -98,6 +98,8 @@ dconf load / < ~/CustomSetupMaterial/DefaultInstall/side_bar.dconf
 [Guake](https://github.com/Guake/guake) is a drop-down terminal that is simple to use with many features.
 
 ```sh
+sudo add-apt-repository ppa:linuxuprising/guake #adds up to date repo
+sudo apt-get update
 sudo apt install guake
 ```
 
@@ -171,6 +173,7 @@ The suggestion is simply to use a good existing profile. Documentation on how to
   cd ~/Downloads #Puts you in the download directory
   curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o Miniconda3-latest-Linux-x86_64.sh #Downloads the latest version of miniconda
   bash Miniconda3-latest-Linux-x86_64.sh #Launches install
+  #Accept the LICENCE and say yes when prompted to update shell profile
   source ~/.zshrc #Take into account the changes
   ```
 
@@ -180,6 +183,23 @@ The suggestion is simply to use a good existing profile. Documentation on how to
   conda create --name CONDA_ENV_NAME python=3.11 #Change the name (CONDA_ENV_NAME) to what you want to call the environment. Set the python version to was is right for you
   conda activate CONDA_ENV_NAME # Activate the environment
   ```
+
+  Play with the python interpreter:
+
+  ```sh
+  python
+  #Run python commands such as 3+5
+  #Press CTRL+D to exit
+  ```
+
+  ### Installing the VSCode IDE
+
+  Go to the [linux vscode webpage](https://code.visualstudio.com/docs/setup/linux) and download the .deb file.
+  Run 
+  ```sh
+  sudo apt install FILE.deb #where FILE.deb is the file you just downloaded. You may need to cd to the Downloads directory
+  ```
+
 
   ### Enabling GPU accelaration for tensorflow (guide inspired from [tensorflow guide](https://www.tensorflow.org/install/pip))
 
