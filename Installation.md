@@ -153,6 +153,13 @@ Open *startup application manager*. Press Add and fill the following fields:
 
 # Accessing the Filer
 
+I created a program for this specific purpose and normally you should only need to follow the instructions.
+To execute this program, run
+
+```sh
+sudo python3 ~/CustomSetupMaterial/DefaultInstall/install_filer.py
+```
+
 # Setup Email Configuration
 
 # Setup Firefox Configuration
