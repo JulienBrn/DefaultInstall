@@ -50,7 +50,7 @@ case $yn in
 	* ) echo invalid response;;
 esac
 
-done
+done 
 
 echo "Installing required librairies. You may be prompted by a scary screen for keberos installation. Do not enter anything and select OK. Press any key co continue"
 read useless
@@ -62,13 +62,15 @@ echo "addent -password -p $username@IMN.U-BORDEAUX2.FR -k 1 -e aes256-cts\n$pass
 
 echo "Creating credentials"
 touch /root/.filersmbcredentials
-echo "username=$username\npassword=$password\ndomain=imn.u-bordeaux2.fr" > /root/.filersmbcredentials
+echo "username=$username" > /root/.filersmbcredentials
+echo "password=$password" >> /root/.filersmbcredentials
+echo "domain=imn.u-bordeaux2.fr" >> /root/.filersmbcredentials
 chmod 600 /root/.filersmbcredentials
 
 echo "Adding automatic mount points"
 for i in "${ADDR[@]}"; do
   mkdir -p "/media/filer2/$i"
-  echo "//filer2-IMN.imn.u-bordeaux2.fr/$i    /media/filer2/$i cifs    credentials=/root/.filersmbcredentials,iocharset=utf8,ro,sec=krb5i    0    0" >> /etc/fstab
+  echo "//filer2-IMN.imn.u-bordeaux2.fr/$i    /media/filer2/$i cifs    users,credentials=/root/.smbcredentials,iocharset=utf8,rw,sec=krb5i,file_mode=0777,dir_mode=0777    0    0" >> /etc/fstab
 done
 
 echo "Mounting filer drives..."
