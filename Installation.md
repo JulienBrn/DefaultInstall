@@ -192,14 +192,24 @@ The suggestion is simply to use a good existing profile. Documentation on how to
   #Press CTRL+D to exit
   ```
 
-  ### Installing the VSCode IDE
+  ### Setting up the VSCode IDE for Python
 
   Go to the [linux vscode webpage](https://code.visualstudio.com/docs/setup/linux) and download the .deb file.
-  Run 
+  Just click on the downloaded file and select software install or run the following
   ```sh
   sudo apt install FILE.deb #where FILE.deb is the file you just downloaded. You may need to cd to the Downloads directory
   ```
 
+  Open the vscode IDE, then either sync it with one of your previous accounts (whose settings probably already include Python), or click on the extension icon on the left, search for python and install the Python language support extension.
+
+  Finally, got to file -> new file and choose python file.
+
+  Write the following program in the file and save it:
+  ```python
+  print(f"Hello! Did you know that 3+5={3+5}?")
+  ```
+
+  Finally, in the lower right, click on Python and select the yourn interpreter (you should choose the one of your conda environment)
 
   ### Enabling GPU accelaration for tensorflow (guide inspired from [tensorflow guide](https://www.tensorflow.org/install/pip))
 
