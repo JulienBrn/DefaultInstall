@@ -20,6 +20,8 @@
 If your disk is encrypted by windows, you may need to unencrypt it (deactivate BitLocker) to install Ubuntu (this depends on what you do). 
 There is however no risk in just continuing from here without caring about this yet, except losing time.
 
+Furthermore, installing Ubuntu has a very low chance of going wrong, but if it goes wrong, you may lose all your data. It may be wise to backup your data beforehand...
+
 1. Make sure to press F2 or F12 (or sometimes F8, this is depends on your hardware) during startup and select your USB Stick as boot device
 2. Select *Try or Install Ubuntu*
 3. Select *Try Ubuntu* (do not install yet)
@@ -28,7 +30,7 @@ There is however no risk in just continuing from here without caring about this 
 ## Creating space to install Ubuntu
 
 1. Open *Disks* from the ubuntu you are trying
-2. Make a partition for where you want to install Ubuntu
+2. Make a partition for where you want to install Ubuntu. It may be impossible without erasing the whole disk if the disk in encrypted.
 
 ## Installing Ubuntu
 
