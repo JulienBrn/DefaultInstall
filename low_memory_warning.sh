@@ -28,7 +28,12 @@ Maybe usable: $usable MiB"
 
     if [ "$available" -lt "$THRESHOLD" ]
         then
-        notify-send -t $INTERVAL"000" -u critical "Low memory warning" "$message" 
+	    zenity \
+	      --info \
+	      --text="<span size=\"xx-large\">Low memory warning</span>\n\n$message</b>." \
+	      --title="Low memory warning" \
+	      --ok-label="Ok"
+        #notify-send -t $INTERVAL"000" -u critical "Low memory warning" "$message" 
         echo "Low memory warning:"
     echo "$message"
     fi
