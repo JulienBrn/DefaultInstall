@@ -2,6 +2,21 @@ from pathlib import Path
 from subprocess import run, PIPE
 import getpass, shutil, sys, filecmp
 from datetime import datetime
+import argparse, os
+
+parser = argparse.ArgumentParser(
+                    prog='install_filer',
+                    description='Sets up filer access on this computer',
+                    epilog='')
+parser.add_argument("--auto", action='store_true', help="Automated default run, only strictly necessary user input is requested")
+parser.add_argument("--use_ticket", action='store_true', help="Uses tickets for kerberos authentification, more reliable but only lasts 24h")
+user_args = vars(parser.parse_args())
+
+kinit_method=user_args["use_ticket"]
+nointeraction=user_args["auto"]
+
+if os.geteuid() != 0:
+    exit("You need to have root privileges to run this script.\nPlease try again, this time using 'sudo'. Exiting.")
 
 def read_username_and_pass(file: Path):
     d = {}
@@ -36,7 +51,8 @@ while not credentials_done:
         print(f"Retrieved credentials from {credentials_file}. Choose one of the following actions:")
         decided=False
         while not decided:
-            r = input("1. Press c to continue.\n2. Press d to erase these credentials and enter new ones.\n3. Press v to view these credentials and then decide.\n")
+            if nointeraction: r='c'
+            else: r = input("1. Press c to continue.\n2. Press d to erase these credentials and enter new ones.\n3. Press v to view these credentials and then decide.\n")
             match r.lower():
                 case "c":
                     credentials_done = True
@@ -51,40 +67,59 @@ while not credentials_done:
         print(f"No valid credential file already found at {credentials_file}. Requesting credentials to create file...")
         get_credentials_from_user(credentials_file, domain="imn.u-bordeaux2.fr")
 
-run(["chmod", "600", str(credentials_file)])
 print("Installing required packages. You may be prompted by a scary screen for keberos installation. If so, do not enter anything and select OK (i.e press ENTER)")
 print("You may also have a cifs error at somepoint and typing if 'modprobe cifs' indicates that cifs is not installed, please do 'sudo apt-get install cifs-util linux-modules-extra-aws' and reboot")
-input("Press any key to continue")
+if not nointeraction:
+    input("Press any key to continue")
 run("apt install -y keyutils cifs-utils krb5-user krb5-config libkrb5-dev".split(" "))
 
 
-krb5_file = Path(sys.argv[0]).parent/"krb5.conf"
 krb5destpath = Path("/etc/krb5.conf")
+fstab_path =  Path("/etc/fstab")
+keytab = Path("/etc/krb5.keytab")
+
+q="fsdds"
+while len(q) == 0 or q.lower()[0] not in ["y", "n"]:
+    if nointeraction: q='n'
+    else: q = input("Do you want to delete previous configuration? Beware, this may erase other krb5 configurations (y/n)")
+if q.lower()[0] == "y":
+    if krb5destpath.exists():
+        shutil.move(krb5destpath, krb5destpath.with_stem(krb5destpath.stem+datetime.today().strftime('%Y-%m-%d, %H:%M:%S')))
+    if keytab.exists():
+        keytab.unlink()
+
+krb5_file = Path(sys.argv[0]).parent/"krb5.conf"
+
 if not krb5destpath.exists() or not filecmp.cmp(krb5_file, krb5destpath):
     print("etc/krb5.conf is being updated")
     if krb5destpath.exists():
-        oldkrb5 = krb5destpath.with_stem(krb5destpath.stem+datetime.today().strftime('%Y-%m-%d'))
+        oldkrb5 = krb5destpath.with_stem(krb5destpath.stem+datetime.today().strftime('%Y-%m-%d, %H:%M:%S'))
         shutil.copy(krb5destpath, oldkrb5) 
     shutil.copy(krb5_file, krb5destpath) 
 
-
-p = run(['klist', '-kte'], stdout=PIPE)
-if not f"{user}@{domain}" in str(p.stdout):
+if kinit_method:
     print("Configuring krb5")
-    input_load = f"""add_entry -password -p {user}@{domain} -k 1 -e aes256-cts
-    {password}
-    write_kt /etc/krb5.keytab
-    quit
-    """
-    p = run(['ktutil'], stdout=PIPE, input=input_load, encoding='ascii')
+    input_load = f"{password}"
+    p = run(['kinit', "-p", user], stdout=PIPE, input=input_load, encoding='utf8')
+else:
+    p = run(['klist', '-kte'], stdout=PIPE)
+    if not f"{user}@{domain}" in str(p.stdout):
+        print("Configuring krb5")
+        input_load = f"""add_entry -password -p {user}@{domain} -k 1 -e aes256-cts
+        {password}
+        write_kt {keytab}
+        quit
+        """
+        p = run(['ktutil'], stdout=PIPE, input=input_load, encoding='utf8')
 
 print("Adding automatic mount point configuration")
 mount_folders = ["T4", "T4b"]
-folders = input("What folders would you like to mount? (separated by ;). Default is T4;T4b")
-if folders:
-    mount_folders = [s.strip() for s in folders.split(";")]
+if not nointeraction:
+    folders = input("What folders would you like to mount? (separated by ;). Default is T4;T4b")
+    if folders:
+        mount_folders = [s.strip() for s in folders.split(";")]
 
-fstab_path =  Path("/etc/fstab")
+
 with fstab_path.open("r") as fstab:
     content = fstab.read()
 for f in mount_folders:
